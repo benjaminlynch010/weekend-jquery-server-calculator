@@ -1,35 +1,38 @@
 $(onReady)
 
 // global variable for answers object
-let answers
+let serverAnswerList
+let formattedAnswer
 
 
 function onReady() {
   console.log('jQuery 🤩');
 // handlers for buttons
-$('#equals').on('click', getAnswers)
+$('#equals').on('click', getAnswer)
 // $('#clear').on('click', handleClear)
 } // end onReady
 
-let inputsForPost = () => {
-  console.log('in inputsForPost')
-  const inputsForPost = {
-    input: 2,
-    input: 5,
-    operator: minus
-  }
+let inputPackager = () => {
+  let inputOne = $('#input-left').val()
+  let inputTwo = $('#input-right').val()
+  let inputPackage = [
+    {first: inputOne}, 
+    {operator: 'placeholder'}, // need to capture operator button
+    {second: inputTwo}
+  ]
+  console.log(inputPackage)
 
 // Ajax to communicate / send data to server.js
   // url: /incoming
   $.ajax({
     method: 'POST', // request type
     url: '/problems', // route
-    data: inputsForPost // data to send (obj or array)
+    data: inputPackage // data to send (obj or array)
   }).then((response) => {
     console.log('😸 POST:', response) // expect 201
 
-    getAnswers()
-    // render () *** setup render function ***
+    getAnswer()
+    render()
   
   }).catch((error) => {
     console.log('POST error:', error)
@@ -38,26 +41,40 @@ let inputsForPost = () => {
 }
 
 
-let getAnswers = () => {
+let getAnswer = () => {
   // ajax to GET answers from server
-    // server endpoint: 
-  console.log('inside getAnswers')
+    // server endpoint: /answers
+  console.log('inside getAnswer')
 
   $.ajax({
     method: 'GET', // how
     url: '/answers', // where
   }).then((response) => {
     console.log('😸 GET:', response)
-    answers = response
-    // render() *** setup render function ***
+    serverAnswerList = response
+    console.log('answer list:', serverAnswerList)
+    render()
   }).catch((error) => {
     console.log('GET error', error)
     alert('😿 GET request failed')
   })
 
-  } // end getAnswers
+  } // end getAnswer
 
-
+  function render() {
+    console.log('render 👌')
+    // empty history
+    $('#history').empty()
+    // loop through array and append 
+    for (let answer of serverAnswerList) {
+      console.log(answer)
+      $('#history').append(`
+        <li>
+          ${answer}
+        </li>
+      `)
+    }
+    } // end render
 
 
 
@@ -67,11 +84,7 @@ let getAnswers = () => {
 //   let rightInput = Number($('#input-right').val())
 
 //   // for POST to server
-//   let inputsForPost = [
-//     {firstNumber: leftInput},
-//     {secondNumber: rightInput} 
-//   ]
-//   console.log(inputsForPost)
+
 // } // end handleCapture
 
 // function handleClear() {
@@ -81,7 +94,4 @@ let getAnswers = () => {
 
 // } // end handleClear
 
-// function render() {
-// console.log('render 👌')
 
-// } // end render
