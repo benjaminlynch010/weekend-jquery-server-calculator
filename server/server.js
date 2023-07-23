@@ -9,8 +9,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static('server/public'))
 
 let answerList = [
-  {problem: '2 + 7', answer: 9},
-  {problem: '11 - 3', answer: 8}
+
 ]
 // setup POST route for inputs object capture
   // history should exist in server after refresh
@@ -18,12 +17,12 @@ app.post('/problems', (req, res) => {
   console.log('body for problems:', req.body)
 
   let inputToCalculate = req.body
+ 
   answerList.push(inputToCalculate)
-  
+
   console.log('array of calculations:', answerList)
   res.sendStatus(201)
 })
-
 
 
 // GET request after POST to get actual calculation

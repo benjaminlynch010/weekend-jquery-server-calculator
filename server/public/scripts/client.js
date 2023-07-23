@@ -1,7 +1,7 @@
 $(onReady)
 
 // global variable for answers object
-let serverAnswerList
+let serverAnswerList = []
 let formattedAnswer
 
 
@@ -25,7 +25,9 @@ function inputPackager() {
   let inputOne = $('#input-left').val()
   let inputTwo = $('#input-right').val()
   let inputPackage = {
-    problem: (`${inputOne} ${operatorbutton} ${inputTwo}`),
+    first: inputOne,
+    second: inputTwo,
+    operator: operatorbutton,
     answer: 0
   }
   console.log(inputPackage)
@@ -84,16 +86,6 @@ function getAnswer() {
     }
     } // end render
 
-
-
-// function handleCapture(num1, num2) {
-//   // capture inputs to send to server
-//   let leftInput = Number($('#input-left').val())
-//   let rightInput = Number($('#input-right').val())
-
-//   // for POST to server
-
-// } // end handleCapture
 
 // function handleClear() {
 //       // clear text boxes
