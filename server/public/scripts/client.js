@@ -9,7 +9,7 @@ function onReady() {
   console.log('jQuery 🤩');
 
 // handlers for buttons
-$('#equals').on('click', getAnswer, inputPackager)
+$('#equals').on('click', inputPackager)
 $('.operator').on('click', 'button', getOperator)
 // $('#clear').on('click', handleClear)
 } // end onReady
