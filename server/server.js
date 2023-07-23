@@ -8,8 +8,10 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 app.use(express.static('server/public'))
 
-let answerList = [ '10', '20', '30' ]
-
+let answerList = [
+  {problem: '2 + 7', answer: 9},
+  {problem: '11 - 3', answer: 8}
+]
 // setup POST route for inputs object capture
   // history should exist in server after refresh
 app.post('/problems', (req, res) => {
@@ -27,7 +29,7 @@ app.get('/answers', (req, res) => {
   console.log('arrived at /answers! answer list:', answerList)
   // server is responding with the answerList array
   res.send(answerList)
-  res.sendStatus(200)
+  // res.sendStatus(200) 
 })
 
 

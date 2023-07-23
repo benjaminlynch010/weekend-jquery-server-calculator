@@ -9,6 +9,7 @@ function onReady() {
   console.log('jQuery 🤩');
 // handlers for buttons
 $('#equals').on('click', getAnswer)
+$('#')
 // $('#clear').on('click', handleClear)
 } // end onReady
 
@@ -17,7 +18,7 @@ let inputPackager = () => {
   let inputTwo = $('#input-right').val()
   let inputPackage = [
     {first: inputOne}, 
-    {operator: 'placeholder'}, // need to capture operator button
+    {operator: operatorbutton}, // need to capture operator button
     {second: inputTwo}
   ]
   console.log(inputPackage)
@@ -66,11 +67,11 @@ let getAnswer = () => {
     // empty history
     $('#history').empty()
     // loop through array and append 
-    for (let answer of serverAnswerList) {
-      console.log(answer)
+    for (let problem of serverAnswerList) {
+      console.log(problem.answer)
       $('#history').append(`
         <li>
-          ${answer}
+          ${problem.problem} = ${problem.answer}
         </li>
       `)
     }
