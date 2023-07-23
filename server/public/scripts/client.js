@@ -7,20 +7,27 @@ let formattedAnswer
 
 function onReady() {
   console.log('jQuery 🤩');
+
 // handlers for buttons
-$('#equals').on('click', getAnswer)
-$('#')
+$('#equals').on('click', getAnswer, inputPackager)
+$('.operator').on('click', 'button', getOperator)
 // $('#clear').on('click', handleClear)
 } // end onReady
 
-let inputPackager = () => {
+let operatorbutton
+function getOperator() {
+  console.log($(this).text())
+  operatorbutton = $(this).text()
+  return operatorbutton
+}
+
+function inputPackager() {
   let inputOne = $('#input-left').val()
   let inputTwo = $('#input-right').val()
-  let inputPackage = [
-    {first: inputOne}, 
-    {operator: operatorbutton}, // need to capture operator button
-    {second: inputTwo}
-  ]
+  let inputPackage = {
+    problem: (`${inputOne} ${operatorbutton} ${inputTwo}`),
+    answer: 0
+  }
   console.log(inputPackage)
 
 // Ajax to communicate / send data to server.js
@@ -42,7 +49,7 @@ let inputPackager = () => {
 }
 
 
-let getAnswer = () => {
+function getAnswer() {
   // ajax to GET answers from server
     // server endpoint: /answers
   console.log('inside getAnswer')
@@ -68,7 +75,7 @@ let getAnswer = () => {
     $('#history').empty()
     // loop through array and append 
     for (let problem of serverAnswerList) {
-      console.log(problem.answer)
+      console.log(problem)
       $('#history').append(`
         <li>
           ${problem.problem} = ${problem.answer}

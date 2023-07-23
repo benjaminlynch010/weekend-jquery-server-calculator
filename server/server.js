@@ -19,10 +19,12 @@ app.post('/problems', (req, res) => {
 
   let inputToCalculate = req.body
   answerList.push(inputToCalculate)
-
+  
   console.log('array of calculations:', answerList)
   res.sendStatus(201)
 })
+
+
 
 // GET request after POST to get actual calculation
 app.get('/answers', (req, res) => {
