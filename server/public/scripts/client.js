@@ -80,7 +80,6 @@ function render() {
       </li>
       `);
   } // end for loop
-
 } // end render
 
 function handleClear() {
