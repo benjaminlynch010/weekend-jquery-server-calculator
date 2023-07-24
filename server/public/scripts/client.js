@@ -2,16 +2,16 @@ $(onReady)
 
 // global variable for answers object
 let serverAnswerList = []
-let formattedAnswer
+
 
 
 function onReady() {
   console.log('jQuery 🤩');
-
+  getAnswer()
 // handlers for buttons
 $('#equals').on('click', inputPackager)
 $('.operator').on('click', 'button', getOperator)
-// $('#clear').on('click', handleClear)
+$('#clear').on('click', handleClear)
 } // end onReady
 
 let operatorbutton
@@ -27,10 +27,9 @@ function inputPackager() {
   let inputPackage = {
     first: inputOne,
     second: inputTwo,
-    operator: operatorbutton,
-    answer: 0
+    operator: operatorbutton
   }
-  console.log(inputPackage)
+  
 
 // Ajax to communicate / send data to server.js
   // url: /incoming
@@ -42,7 +41,6 @@ function inputPackager() {
     console.log('😸 POST:', response) // expect 201
 
     getAnswer()
-    render()
   
   }).catch((error) => {
     console.log('POST error:', error)
@@ -77,21 +75,22 @@ function getAnswer() {
     $('#history').empty()
     // loop through array and append 
     for (let problem of serverAnswerList) {
-      console.log(problem)
+      console.log('in for loop, problem:', problem)
       $('#history').append(`
         <li>
-          ${problem.problem} = ${problem.answer}
+        ${problem.input1} ${problem.operation} ${problem.input2} = ${problem.solution}
+      
         </li>
       `)
     }
     } // end render
 
 
-// function handleClear() {
-//       // clear text boxes
-//       $('#input-left').val('')
-//       $('#input-right').val('')
+function handleClear() {
+      // clear text boxes
+      $('#input-left').val('')
+      $('#input-right').val('')
 
-// } // end handleClear
+} // end handleClear
 
 
