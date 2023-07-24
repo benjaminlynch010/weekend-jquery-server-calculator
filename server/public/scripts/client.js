@@ -74,12 +74,13 @@ function render() {
   // loop through array and append
   for (let problem of serverAnswerList) {
     console.log("in for loop, problem:", problem);
-    $("#history").append(`
-        <li>
+    $("#history").append(` 
+      <li>
         ${problem.input1} ${problem.operation} ${problem.input2} = ${problem.solution}
-        </li>
+      </li>
       `);
-  }
+  } // end for loop
+
 } // end render
 
 function handleClear() {
